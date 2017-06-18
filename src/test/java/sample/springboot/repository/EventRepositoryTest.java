@@ -1,5 +1,7 @@
 package sample.springboot.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -59,7 +61,12 @@ public class EventRepositoryTest {
 	 */
 	@Test
 	public void testFindEventByTitle() {
+		
 		List<Event> result = eventReository.findEventByTitle("Perfume");
+		
+		// 検証
+		assertThat(result.size()).isEqualTo(1);
+		assertThat(result).extracting("title").containsOnly("Perfume");
 	}
 
 }
