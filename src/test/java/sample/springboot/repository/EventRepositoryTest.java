@@ -13,16 +13,28 @@ import org.springframework.test.context.junit4.SpringRunner;
 import sample.springboot.entity.Category;
 import sample.springboot.entity.Event;
 
+/**
+ * {@link EventRepository}の使用例を表すテストケースクラス。
+ * 
+ * @see EventRepository
+ * @author bookstore
+ * @since 2017/6/18
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class EventRepositoryTest {
 
+	/** イベントリポジトリクラス */
 	@Autowired
 	private EventRepository eventReository;
 
+	/** カテゴリリポジトリクラス */
 	@Autowired
 	private CategoryRepository categoryRepository;
 
+	/**
+	 * テスト実行前に初期データをデータベースへ登録。
+	 */
 	@Before
 	public void setUp() {
 		categoryRepository.deleteAll();
@@ -40,17 +52,14 @@ public class EventRepositoryTest {
 
 		eventReository.save(event001);
 		eventReository.save(event002);
-
-		// イベントを取り出す
-		Iterable<Event> events = eventReository.findAll();
-		events.forEach(System.out::println);
 	}
 
+	/**
+	 * イベント名からイベントエンティティオブジェクトを取得する。
+	 */
 	@Test
 	public void testFindEventByTitle() {
 		List<Event> result = eventReository.findEventByTitle("Perfume");
-		result.forEach(System.out::println);
-		List<Event> result2 = eventReository.findEventByTitle(null);
 	}
 
 }
